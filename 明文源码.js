@@ -123,13 +123,13 @@ export default {
 				if (url.searchParams.has('sub') && url.searchParams.get('sub') !== '') sub = url.searchParams.get('sub');
 
 				if (url.searchParams.has('proxyip')) {
-					path = `/?ed=2560&proxyip=${url.searchParams.get('proxyip')}`;
+					path = `/proxyip=${url.searchParams.get('proxyip')}`;
 					RproxyIP = 'false';
 				} else if (url.searchParams.has('socks5')) {
-					path = `/?ed=2560&socks5=${url.searchParams.get('socks5')}`;
+					path = `/?socks5=${url.searchParams.get('socks5')}`;
 					RproxyIP = 'false';
 				} else if (url.searchParams.has('socks')) {
-					path = `/?ed=2560&socks5=${url.searchParams.get('socks')}`;
+					path = `/?socks5=${url.searchParams.get('socks')}`;
 					RproxyIP = 'false';
 				}
 				switch (url.pathname) {
@@ -704,11 +704,20 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 		if ((addresses.length + addressesapi.length + addressescsv.length) == 0) {
 			// 定义 Cloudflare IP 范围的 CIDR 列表
 			let cfips = [
-				'103.21.244.0/23',
+				'103.21.244.0/24',
 				'104.16.0.0/13',
 				'104.24.0.0/14',
 				'172.64.0.0/14',
-				'103.21.244.0/23',
+				'104.16.0.0/14',
+				'104.24.0.0/15',
+				'141.101.64.0/19',
+				'172.64.0.0/14',
+				'188.114.96.0/21',
+				'190.93.240.0/21',
+				'162.159.152.0/23',
+				'104.16.0.0/13',
+				'104.24.0.0/14',
+				'172.64.0.0/14',
 				'104.16.0.0/14',
 				'104.24.0.0/15',
 				'141.101.64.0/19',
@@ -734,7 +743,11 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 				return randomIP.join('.');
 			}
 			addresses = addresses.concat('127.0.0.1:1234#CFnat');
-			addresses = addresses.concat(cfips.map(cidr => generateRandomIPFromCIDR(cidr) + '#CF随机节点'));
+			let counter = 1;
+			const randomPorts = httpsPorts.concat('443');
+			addresses = addresses.concat(
+				cfips.map(cidr => generateRandomIPFromCIDR(cidr) + ':' + randomPorts[Math.floor(Math.random() * randomPorts.length)] + '#CF随机节点' + String(counter++).padStart(2, '0'))
+			);
 		}
 	}
 
@@ -817,6 +830,9 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 			singbox订阅地址:<br>
 			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${password}?sb','qrcode_3')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${password}?sb</a><br>
 			<div id="qrcode_3" style="margin: 10px 10px 10px 10px;"></div>
+			loon订阅地址:<br>
+			<a href="javascript:void(0)" onclick="copyToClipboard('https://${proxyhost}${hostName}/${password}?loon','qrcode_5')" style="color:blue;text-decoration:underline;cursor:pointer;">https://${proxyhost}${hostName}/${password}?loon</a><br>
+			<div id="qrcode_5" style="margin: 10px 10px 10px 10px;"></div>
 			${surge}
 			<strong><a href="javascript:void(0);" id="noticeToggle" onclick="toggleNotice()">实用订阅技巧∨</a></strong><br>
 				<div id="noticeContent" class="notice-content" style="display: none;">
@@ -892,9 +908,10 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 			################################################################<br>
 			clash-meta<br>
 			---------------------------------------------------------------<br>
-			<br>
+			${clash}<br>
 			---------------------------------------------------------------<br>
 			################################################################<br>
+			${cmad}
 			`;
 		return `<div style="font-size:13px;">${节点配置页}</div>`;
 	} else {
@@ -952,6 +969,9 @@ async function get特洛伊Config(password, hostName, sub, UA, RproxyIP, _url, f
 				isBase64 = false;
 			} else if (userAgent.includes('surge') || _url.searchParams.has('surge')) {
 				url = `${subProtocol}://${subConverter}/sub?target=surge&ver=4&url=${encodeURIComponent(url)}&insert=false&config=${encodeURIComponent(subConfig)}&emoji=${subEmoji}&list=false&xudp=false&udp=false&tfo=false&expand=true&scv=true&fdn=false`;
+				isBase64 = false;
+			} else if (userAgent.includes('loon') || _url.searchParams.has('loon')) {
+				url = `${subProtocol}://${subConverter}/sub?target=loon&url=${encodeURIComponent(url)}&insert=false&config=${encodeURIComponent(subConfig)}&emoji=${subEmoji}&list=false&tfo=false&scv=true&fdn=false&sort=false&new_name=true`;
 				isBase64 = false;
 			}
 		}
@@ -1235,14 +1255,15 @@ function subAddresses(host, pw, userAgent, newAddressesapi, newAddressescsv) {
 		let 伪装域名 = host;
 		let 最终路径 = path;
 		let 节点备注 = '';
-
+		const matchingProxyIP = proxyIPPool.find(proxyIP => proxyIP.includes(address));
+		if (matchingProxyIP) 最终路径 = `/proxyip=${matchingProxyIP}`;
+		
 		if (proxyhosts.length > 0 && (伪装域名.includes('.workers.dev'))) {
 			最终路径 = `/${伪装域名}${最终路径}`;
 			伪装域名 = proxyhosts[Math.floor(Math.random() * proxyhosts.length)];
 			节点备注 = ` 已启用临时域名中转服务，请尽快绑定自定义域！`;
 		}
-		const matchingProxyIP = proxyIPPool.find(proxyIP => proxyIP.includes(address));
-		if (matchingProxyIP) 最终路径 += `&proxyip=${matchingProxyIP}`;
+
 		let 密码 = pw;
 		if (!userAgent.includes('subconverter')) 密码 = encodeURIComponent(pw);
 
