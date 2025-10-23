@@ -1,5 +1,5 @@
-hk.nfjunka.xyz#香港🐸高速,
-hk2.nfjunka.xyz#香港🐸高速,
+hk.nfjunka.xyz:7417#香港🐸高速,
+hk2.nfjunka.xyz:26688#香港🐸高速,
 hk3.nfjunka.xyz#香港🐸高速,
 hk4.nfjunka.xyz#香港🐸高速,
 sg1.nfjunka.xyz#新加坡🐸高速,
