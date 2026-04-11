@@ -1,5 +1,5 @@
 hk1.junkatz.com#香港🐸高速,
-hk2.junkatz.com:26688#香港🐸高速,
+hk2.junkatz.com#香港🐸高速,
 hk3.junkatz.com#香港🐸高速,
 hk4.junkatz.com#香港🐸高速,
 sg1.junkatz.com#新加坡🐸高速,
