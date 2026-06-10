@@ -29,6 +29,8 @@ tr1.junkatz.com#土耳其🐸
 tr2.junkatz.com#土耳其🐸
 ae1.junkatz.com#迪拜🐸
 ae2.junkatz.com#迪拜🐸
+ru1.junkatz.com#俄罗斯🐸
+ru2.junkatz.com#俄罗斯🐸
 in1.junkatz.com#印度🐸
 in2.junkatz.com#印度🐸
 de1.junkatz.com#德国🐸
