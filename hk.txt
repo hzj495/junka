@@ -6,7 +6,7 @@ sg1.junkatz.com#新加坡🐸高速
 sg2.junkatz.com#新加坡🐸高速
 sg3.junkatz.com#新加坡🐸高速
 sg4.junkatz.com#新加坡🐸高速
-jp1.junkatz.com#日本🐸高速
+jp1.junkatz.com:34237#日本🐸高速
 jp2.junkatz.com#日本🐸高速
 jp3.junkatz.com#日本🐸高速
 jp4.junkatz.com#日本🐸高速
