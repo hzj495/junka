@@ -27,7 +27,7 @@ let addressesapi = [""];
 let addressescsv = [];
 let DLS = 8;
 let remarkIndex = 1;//CSV备注所在列偏移量
-let FileName = '君卡';
+let FileName = '';
 let BotToken = '';
 let ChatID = '';
 let proxyhosts = [];
@@ -4957,7 +4957,7 @@ function config_Html(token = "test", proxyhost = "") {
                     </svg>
                 </a>-->
             </div>
-            <h1 id="pageHeader">🚀 君卡 配置中心</h1>
+            <h1 id="pageHeader">🚀配置中心</h1>
         </div>
 
         <div id="loading" class="loading">
