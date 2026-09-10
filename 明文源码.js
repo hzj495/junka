@@ -49,7 +49,7 @@ let allowInsecure = '&allowInsecure=1';
 // 到期时间控制
 let expiryDate = '';  // 格式：YYYY-MM-DD
 
-let code2SubscriptionURL = 'https://css.junkayk.com/1c6a16fc-a078-4aed-a464-b41e6e4e7851/sub';
+let code2SubscriptionURL = '';
 
 export default {
     async fetch(request, env, ctx) {
