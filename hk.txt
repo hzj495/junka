@@ -1,3 +1,4 @@
+us1.junkatz.com#X用美国或者备用节点
 hk1.junkatz.com#香港🐸高速-A
 hk2.junkatz.com#香港🐸高速-A
 hk3.junkatz.com#香港🐸高速-A
